@@ -5,6 +5,7 @@ import { FaGithub } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 
 import { DottedSeparator } from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
@@ -17,28 +18,22 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
 
-const formSchema = z.object({
-  email: z.email("Invalid email address"),
-  password: z
-    .string()
-    .min(8, "Password must be at least 8 characters")
-    .max(32, "Password must not exceed 32 characters"),
-});
+import { loginSchema } from "../schemas";
+import { useLogin } from "../api/use-login";
 
 export const SignInCard = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const { mutate } = useLogin();
+  const form = useForm<z.infer<typeof loginSchema>>({
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // mutate({ json: values });
-    console.log("Form submitted with values:", values);
+  const onSubmit = (values: z.infer<typeof loginSchema>) => {
+    mutate({ json: values });
   };
 
   return (
