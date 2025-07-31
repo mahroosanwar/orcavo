@@ -1,0 +1,1 @@
+export const AUTH_COOKIE = "mah-orcavo-pmt-session";
