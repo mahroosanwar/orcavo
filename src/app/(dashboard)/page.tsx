@@ -1,3 +1,9 @@
+import { CreateWorkspaceForm } from "@/features/workspaces/components/create-workspace-form";
+
 export default function Home() {
-  return <div>This is a Home page.</div>;
+  return (
+    <div>
+      <CreateWorkspaceForm  />
+    </div>
+  );
 }
