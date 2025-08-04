@@ -11,7 +11,6 @@ import { useCreateProjectModal } from "@/features/projects/hooks/use-create-proj
 import { ProjectAvatar } from "@/features/projects/components/project-avatar";
 
 export const Projects = () => {
-  const projectId = null; //TODO: Replace with actual project ID useProjectId hook
   const { open } = useCreateProjectModal();
   const pathname = usePathname();
   const workspaceId = useWorkspaceId();
