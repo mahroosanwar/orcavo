@@ -8,10 +8,12 @@ interface ProjectIdSettingPageProps {
 }
 
 const ProjectIdSettingsPage = async ({ params }: ProjectIdSettingPageProps) => {
+  const { projectId } = await params; //  TODO: have to check this await
   const user = await getCurrent();
+
   if (!user) redirect("/sign-in");
 
-  const initialValues = await getProject({ projectId: params.projectId });
+  const initialValues = await getProject({ projectId });
 
   return (
     <div className="w-full lg:max-w-xl">

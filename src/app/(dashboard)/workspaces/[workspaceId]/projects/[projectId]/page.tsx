@@ -6,17 +6,19 @@ import { Button } from "@/components/ui/button";
 import { getCurrent } from "@/features/auth/queries";
 import { ProjectAvatar } from "@/features/projects/components/project-avatar";
 import { getProject } from "@/features/projects/queries";
+import TaskViewSwitcher from "@/features/tasks/components/task-view-switcher";
 
 interface ProjectIdPageProps {
   params: { projectId: string };
 }
 
 const ProjectIdPage = async ({ params }: ProjectIdPageProps) => {
+  const { projectId } = await params; //  TODO: have to check this await
   const user = await getCurrent();
 
   if (!user) redirect("/sign-in");
 
-  const initialValues = await getProject({ projectId: params.projectId });
+  const initialValues = await getProject({ projectId });
 
   if (!initialValues) {
     throw new Error("Project not found or you do not have access to it");
@@ -43,6 +45,7 @@ const ProjectIdPage = async ({ params }: ProjectIdPageProps) => {
           </Button>
         </div>
       </div>
+      <TaskViewSwitcher />
     </div>
   );
 };
