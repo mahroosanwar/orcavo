@@ -11,8 +11,8 @@ import {
 
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 
-// import { useDeleteTask } from "../api/use-delete-task";
-// import { useEditTaskModal } from "../hooks/use-edit-task-modal";
+import { useDeleteTask } from "../api/use-delete-task";
+import { useEditTaskModal } from "../hooks/use-edit-task-modal";
 
 interface TaskActionsProps {
   id: string;
@@ -24,21 +24,21 @@ export const TaskActions = ({ id, projectId, children }: TaskActionsProps) => {
   const router = useRouter();
   const workspaceId = useWorkspaceId();
 
-  //   const { open } = useEditTaskModal();
+    const { open } = useEditTaskModal();
 
   const [ConfirmDialog, confirm] = useConfirm(
     "Delete Task",
     "This action cannot be undone.",
     "destructive"
   );
-  //   const { mutate, isPending } = useDeleteTask();
+  const { mutate, isPending } = useDeleteTask();
 
-  //   const onDelete = async () => {
-  //     const ok = await confirm();
-  //     if (!ok) return;
+  const onDelete = async () => {
+    const ok = await confirm();
+    if (!ok) return;
 
-  //     mutate({ param: { taskId: id } });
-  //   };
+    mutate({ param: { taskId: id } });
+  };
 
   const onOpenTask = () => {
     router.push(`/workspaces/${workspaceId}/tasks/${id}`);
@@ -78,8 +78,8 @@ export const TaskActions = ({ id, projectId, children }: TaskActionsProps) => {
             Edit Task
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => {}}
-            disabled={false}
+            onClick={onDelete}
+            disabled={isPending}
             className="text-amber-700 focus:text-amber-700 font-medium p-[10px]"
           >
             <TrashIcon className="size-4 mr-2 stroke-2" />
