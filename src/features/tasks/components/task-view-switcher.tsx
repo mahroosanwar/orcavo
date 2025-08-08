@@ -1,17 +1,22 @@
 "use client";
 
+import { useCallback } from "react";
+import { useQueryState } from "nuqs";
+import { Loader, PlusIcon } from "lucide-react";
+
 import { DottedSeparator } from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Loader, PlusIcon } from "lucide-react";
 import { useCreateTaskModal } from "../hooks/use-create-task-modal";
 import { useGetTasks } from "../api/use-get-tasks";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
-import { useQueryState } from "nuqs";
 import { DataFilters } from "./data-filters";
 import { useTaskFilters } from "../hooks/use-task-filters";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
+import { DataKanban } from "./data-kanban";
+import { TaskStatus } from "../types";
+import { useBulkUpdateTasks } from "../api/use-bulk-update-tasks";
 
 const TaskViewSwitcher = () => {
   const [{ status, assigneeId, projectId, dueDate }] = useTaskFilters();
@@ -19,6 +24,7 @@ const TaskViewSwitcher = () => {
   const [view, setView] = useQueryState("task-view", {
     defaultValue: "table",
   });
+  const { mutate: bulkUpdate } = useBulkUpdateTasks();
 
   const workspaceId = useWorkspaceId();
   const { data: tasks, isLoading: isLoadingTasks } = useGetTasks({
@@ -28,6 +34,13 @@ const TaskViewSwitcher = () => {
     status,
     dueDate,
   });
+
+  const onKanbanChange = useCallback(
+    (tasks: { $id: string; status: TaskStatus; position: number }[]) => {
+      bulkUpdate({ json: { tasks } });
+    },
+    [bulkUpdate]
+  );
 
   const { open } = useCreateTaskModal();
 
@@ -68,7 +81,10 @@ const TaskViewSwitcher = () => {
               <DataTable columns={columns} data={tasks?.documents ?? []} />
             </TabsContent>
             <TabsContent value="kanban" className="mt-0">
-              {JSON.stringify(tasks)}
+              <DataKanban
+                onChange={onKanbanChange}
+                data={tasks?.documents ?? []}
+              />
             </TabsContent>
 
             <TabsContent value="calendar" className="mt-0 h-full pb-4">
