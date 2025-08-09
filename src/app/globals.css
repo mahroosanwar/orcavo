@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "../features/tasks/components/data-calendar.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -129,3 +130,4 @@
 .hide-scrollbar::--webkit-scrollbar {
   display: none;
 }
+

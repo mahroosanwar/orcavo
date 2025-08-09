@@ -13,8 +13,9 @@ import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { DataFilters } from "./data-filters";
 import { useTaskFilters } from "../hooks/use-task-filters";
 import { DataTable } from "./data-table";
-import { columns } from "./columns";
 import { DataKanban } from "./data-kanban";
+import { DataCalendar } from "./data-calendar";
+import { columns } from "./columns";
 import { TaskStatus } from "../types";
 import { useBulkUpdateTasks } from "../api/use-bulk-update-tasks";
 
@@ -88,7 +89,9 @@ const TaskViewSwitcher = () => {
             </TabsContent>
 
             <TabsContent value="calendar" className="mt-0 h-full pb-4">
-              {JSON.stringify(tasks)}
+              {/* <div className="h-[600px]"> */}
+              <DataCalendar data={tasks?.documents ?? []}/>
+              {/* </div> */}
             </TabsContent>
           </>
         )}
