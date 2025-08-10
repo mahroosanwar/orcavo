@@ -1,11 +1,11 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
 
 import { DottedSeparator } from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
@@ -18,12 +18,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { signUpWithGithub, signUpWithGoogle } from "@/lib/oauth";
 
 import { loginSchema } from "../schemas";
 import { useLogin } from "../api/use-login";
 
 export const SignInCard = () => {
-  const { mutate } = useLogin();
+  const { mutate, isPending } = useLogin();
+
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -37,9 +39,9 @@ export const SignInCard = () => {
   };
 
   return (
-    <Card className="w-full h-full md:w-[487px] border-none shadow-none">
+    <Card className="size-full md:w-[487px] border-none shadow-none">
       <CardHeader className="flex items-center justify-center text-center p-7">
-        <CardTitle className="text-2xl">Welcome Back!</CardTitle>
+        <CardTitle className="text-2xl">Welcome back!</CardTitle>
       </CardHeader>
       <div className="px-7">
         <DottedSeparator />
@@ -79,7 +81,7 @@ export const SignInCard = () => {
                 </FormItem>
               )}
             />
-            <Button disabled={false} size="lg" className="w-full">
+            <Button disabled={isPending} size="lg" className="w-full">
               Login
             </Button>
           </form>
@@ -88,9 +90,10 @@ export const SignInCard = () => {
       <div className="px-7">
         <DottedSeparator />
       </div>
-      <CardContent className="p-7  flex flex-col gap-y-4">
+      <CardContent className="p-7 flex flex-col gap-y-4">
         <Button
-          disabled={false}
+          onClick={() => signUpWithGoogle()}
+          disabled={isPending}
           variant="secondary"
           size="lg"
           className="w-full"
@@ -99,7 +102,8 @@ export const SignInCard = () => {
           Login with Google
         </Button>
         <Button
-          disabled={false}
+          onClick={() => signUpWithGithub()}
+          disabled={isPending}
           variant="secondary"
           size="lg"
           className="w-full"
@@ -108,6 +112,9 @@ export const SignInCard = () => {
           Login with GitHub
         </Button>
       </CardContent>
+      <div className="px-7">
+        <DottedSeparator />
+      </div>
       <CardContent className="p-7 flex items-center justify-center">
         <p>
           Don&apos;t have an account?{" "}
