@@ -10,14 +10,20 @@ import TaskViewSwitcher from "@/features/tasks/components/task-view-switcher";
 import { useGetProject } from "@/features/projects/api/use-get-project";
 import { PageLoader } from "@/components/page-loader";
 import { PageError } from "@/components/page-error";
+import { useGetProjectAnalytics } from "@/features/projects/api/use-get-project-analytics";
+import { Analytics } from "@/components/analytics";
 
 const ProjectIdClient = () => {
   const projectId = useProjectId();
   const { data: project, isLoading: isLoadingProject } = useGetProject({
     projectId,
   });
+  const { data: analytics, isLoading: isLoadingAnalytics } =
+    useGetProjectAnalytics({ projectId });
 
-  if (isLoadingProject) {
+  const isLoading = isLoadingProject || isLoadingAnalytics;
+
+  if (isLoading) {
     return <PageLoader />;
   }
 
@@ -46,6 +52,7 @@ const ProjectIdClient = () => {
           </Button>
         </div>
       </div>
+      {analytics ? <Analytics data={analytics} /> : null}
       <TaskViewSwitcher hideProjectFilter />
     </div>
   );
