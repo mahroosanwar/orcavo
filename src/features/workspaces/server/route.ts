@@ -1,8 +1,8 @@
 import { zValidator } from "@hono/zod-validator";
-import { Hono } from "hono";
 import { endOfMonth, startOfMonth, subMonths } from "date-fns";
+import { Hono } from "hono";
 import { ID, Query } from "node-appwrite";
-import z from "zod";
+import { z } from "zod";
 
 import {
   DATABASE_ID,
@@ -11,11 +11,12 @@ import {
   TASKS_ID,
   WORKSPACES_ID,
 } from "@/config";
+import { sessionMiddleware } from "@/lib/session-middleware";
+import { generateInviteCode } from "@/lib/utils";
+
 import { MemberRole } from "@/features/members/types";
 import { getMember } from "@/features/members/utils";
 import { TaskStatus } from "@/features/tasks/types";
-import { sessionMiddleware } from "@/lib/session-middleware";
-import { generateInviteCode } from "@/lib/utils";
 
 import { createWorkspaceSchema, updateWorkspaceSchema } from "../schemas";
 import { Workspace } from "../types";
@@ -276,7 +277,8 @@ const app = new Hono()
 
       return c.json({ data: workspace });
     }
-  )  .get("/:workspaceId/analytics", sessionMiddleware, async (c) => {
+  )
+  .get("/:workspaceId/analytics", sessionMiddleware, async (c) => {
     const user = c.get("user");
     const databases = c.get("databases");
     const { workspaceId } = c.req.param();
@@ -440,6 +442,6 @@ const app = new Hono()
         overdueTaskDifference,
       },
     });
-  });;
+  });
 
 export default app;

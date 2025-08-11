@@ -1,13 +1,14 @@
-import { Hono } from "hono";
-import z from "zod";
 import { zValidator } from "@hono/zod-validator";
-import { ID, Query } from "node-appwrite";
 import { endOfMonth, startOfMonth, subMonths } from "date-fns";
+import { Hono } from "hono";
+import { ID, Query } from "node-appwrite";
+import { z } from "zod";
 
-import { sessionMiddleware } from "@/lib/session-middleware";
 import { getMember } from "@/features/members/utils";
-import { DATABASE_ID, IMAGES_BUCKET_ID, PROJECTS_ID, TASKS_ID } from "@/config";
 import { TaskStatus } from "@/features/tasks/types";
+
+import { DATABASE_ID, IMAGES_BUCKET_ID, PROJECTS_ID, TASKS_ID } from "@/config";
+import { sessionMiddleware } from "@/lib/session-middleware";
 
 import { createProjectSchema, updateProjectSchema } from "../schemas";
 import { Project } from "../types";
@@ -70,12 +71,7 @@ const app = new Hono()
   .get(
     "/",
     sessionMiddleware,
-    zValidator(
-      "query",
-      z.object({
-        workspaceId: z.string(),
-      })
-    ),
+    zValidator("query", z.object({ workspaceId: z.string() })),
     async (c) => {
       const user = c.get("user");
       const databases = c.get("databases");
@@ -83,7 +79,7 @@ const app = new Hono()
       const { workspaceId } = c.req.valid("query");
 
       if (!workspaceId) {
-        return c.json({ error: "Workspace ID is required" }, 400);
+        return c.json({ error: "Missing workspaceId" }, 400);
       }
 
       const member = await getMember({
@@ -99,7 +95,7 @@ const app = new Hono()
       const projects = await databases.listDocuments<Project>(
         DATABASE_ID,
         PROJECTS_ID,
-        [Query.equal("workspaceId", workspaceId)]
+        [Query.equal("workspaceId", workspaceId), Query.orderDesc("$createdAt")]
       );
 
       return c.json({ data: projects });

@@ -10,7 +10,7 @@ import { OAuthProvider } from "node-appwrite";
 export async function signUpWithGithub() {
   const { account } = await createAdminClient();
 
-  const origin = headers().get("origin");
+  const origin = (await headers()).get("origin");
 
   const redirectUrl = await account.createOAuth2Token(
     OAuthProvider.Github,
@@ -24,7 +24,7 @@ export async function signUpWithGithub() {
 export async function signUpWithGoogle() {
   const { account } = await createAdminClient();
 
-  const origin = headers().get("origin");
+  const origin = (await headers()).get("origin");
 
   const redirectUrl = await account.createOAuth2Token(
     OAuthProvider.Google,
