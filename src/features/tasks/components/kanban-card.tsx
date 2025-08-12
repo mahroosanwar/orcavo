@@ -26,6 +26,7 @@ export const KanbanCard = ({ task }: KanbanCardProps) => {
       <DottedSeparator />
       <div className="flex items-center gap-x-1.5">
         <MemberAvatar
+          // @ts-expect-error "assignee" is not in type Task in types.ts but exists in populated data in server/routes in .get()
           name={task.assignee.name}
           fallbackClassName="text-[10px]"
         />
@@ -34,10 +35,13 @@ export const KanbanCard = ({ task }: KanbanCardProps) => {
       </div>
       <div className="flex items-center gap-x-1.5">
         <ProjectAvatar
+          // @ts-expect-error "project" is not in type Task in types.ts but exists in populated data in server/routes in .get()
           name={task.project.name}
+          // @ts-expect-error "project" is not in type Task in types.ts but exists in populated data in server/routes in .get()
           image={task.project.imageUrl}
           fallbackClassName="text-[10px]"
         />
+        {/* @ts-expect-error "project" is not in type Task in types.ts but exists in populated data in server/routes in .get() */}
         <span className="text-xs font-medium">{task.project.name}</span>
       </div>
     </div>

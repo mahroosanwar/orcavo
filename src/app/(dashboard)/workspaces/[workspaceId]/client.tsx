@@ -91,6 +91,7 @@ export const TaskList = ({ data, total }: TaskListProps) => {
                   <CardContent className="p-4">
                     <p className="text-lg font-medium truncate">{task.name}</p>
                     <div className="flex items-center gap-x-2">
+                      {/* @ts-expect-error "project" is not in type Task in types.ts but exists in populated data in server/routes in .get() */}
                       <p>{task.project?.name}</p>
                       <div className="size-1 rounded-full bg-neutral-300" />
                       <div className="flex items-center text-sm text-muted-foreground">
@@ -190,12 +191,15 @@ export const MemberList = ({ data, total }: MemberListProps) => {
             <li key={member.$id}>
               <Card className="shadow-none rounded-lg overflow-hidden">
                 <CardContent className="p-3 flex flex-col items-center gap-x-2">
+                  {/* @ts-expect-error "name" is not in types.ts Member type but exists in populated data server/routes in .get()*/}
                   <MemberAvatar name={member.name} className="size-12" />
                   <div className="flex flex-col items-center overflow-hidden">
                     <p className="text-lg font-medium line-clamp-1">
+                      {/* @ts-expect-error "name" is not in types.ts Member type but exists in populated data server/routes in .get()*/}
                       {member.name}
                     </p>
                     <p className="text-sm text-muted-foreground line-clamp-1">
+                      {/* @ts-expect-error "email" is not in types.ts Member type but exists in populated data server/routes in .get()*/}
                       {member.email}
                     </p>
                   </div>

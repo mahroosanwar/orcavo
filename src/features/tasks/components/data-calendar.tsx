@@ -75,7 +75,9 @@ export const DataCalendar = ({ data }: DataCalendarProps) => {
     start: new Date(task.dueDate),
     end: new Date(task.dueDate),
     title: task.name,
+    // @ts-expect-error "project" is not in type Task in types.ts but exists in populated data server/routes in .get()
     project: task.project,
+    // @ts-expect-error "assignee" is not in type Task in types.ts but exists in populated data in server/routes in .get()
     assignee: task.assignee,
     status: task.status,
     id: task.$id,
@@ -87,8 +89,8 @@ export const DataCalendar = ({ data }: DataCalendarProps) => {
     } else if (action === "NEXT") {
       setValue(addMonths(value, 1));
     } else if (action === "TODAY") {
-      setValue(new Date());s
-    } 
+      setValue(new Date());
+    }
   };
 
   return (

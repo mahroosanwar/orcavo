@@ -49,6 +49,7 @@ export const columns: ColumnDef<Task>[] = [
       );
     },
     cell: ({ row }) => {
+      // @ts-expect-error "project" is not in type Task in types.ts but exists in populated data server/routes in .get()
       const project = row.original.project;
 
       return (
@@ -77,6 +78,7 @@ export const columns: ColumnDef<Task>[] = [
       );
     },
     cell: ({ row }) => {
+      // @ts-expect-error "assignee" is not in type Task in types.ts but exists in populated data in server/routes in .get()
       const assignee = row.original.assignee;
 
       return (

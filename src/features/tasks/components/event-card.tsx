@@ -52,6 +52,7 @@ export const EventCard = ({
       >
         <p>{title}</p>
         <div className="flex items-center gap-x-1">
+          {/* @ts-expect-error "name" is not in types.ts Member type but exists in populated data server/routes in .get()*/}
           <MemberAvatar name={assignee?.name} />
           <div className="size-1 rounded-full bg-neutral-300" />
           <ProjectAvatar name={project?.name} image={project?.imageUrl} />
