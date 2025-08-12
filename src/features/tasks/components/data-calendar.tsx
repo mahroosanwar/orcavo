@@ -87,8 +87,8 @@ export const DataCalendar = ({ data }: DataCalendarProps) => {
     } else if (action === "NEXT") {
       setValue(addMonths(value, 1));
     } else if (action === "TODAY") {
-      setValue(new Date());
-    }
+      setValue(new Date());s
+    } 
   };
 
   return (

@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ProjectAvatar } from "@/features/projects/components/project-avatar";
 import { useProjectId } from "@/features/projects/hooks/use-project-id";
-import TaskViewSwitcher from "@/features/tasks/components/task-view-switcher";
+import { TaskViewSwitcher } from "@/features/tasks/components/task-view-switcher";
 import { useGetProject } from "@/features/projects/api/use-get-project";
 import { PageLoader } from "@/components/page-loader";
 import { PageError } from "@/components/page-error";
