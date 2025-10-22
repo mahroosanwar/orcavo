@@ -24,10 +24,52 @@ Orcavo is a scalable project management tool designed for collaborative teams. I
 
 ---
 
+## Screenshots
+<!--
+### Landing Page
+![Landing Page](public/screenshots/landing.png)
+-->
+
+### Sign In
+![Sign In](public/screenshots/sign-in.png)
+
+### Sign Up
+![Sign Up](public/screenshots/sign-up.png)
+
+### Dashboard
+![Dashboard](public/screenshots/dashboard.png)
+
+### Workspace List
+![Workspace List](public/screenshots/workspace-list.png)
+
+### Create Workspace
+![Create Workspace](public/screenshots/create-workspace.png)
+
+### Project List
+![Project List](public/screenshots/project-list.png)
+
+### Create Project
+![Create Project](public/screenshots/create-project.png)
+
+### Project Analytics
+![Project Analytics](public/screenshots/project-analytics.png)
+
+### Task Board/List
+![Task Board/List](public/screenshots/task-board.png)
+
+### Member Management
+![Member Management](public/screenshots/member-management.png)
+
+### Settings/Profile
+![Settings/Profile](public/screenshots/settings.png)
+
+### Error Page
+![Error Page](public/screenshots/error.png)
+
 ## Features
 
 - Multi-tenant workspaces for team collaboration
-- Project and task management (CRUD, bulk update, drag-and-drop)
+- Project and task management (CRUD, drag-and-drop(Kanban) task)
 - Member management (invite, update roles, remove)
 - Role-based access control
 - Real-time analytics dashboards and reporting
@@ -45,7 +87,6 @@ Orcavo is a scalable project management tool designed for collaborative teams. I
 - **Backend/API:** Appwrite, Hono, Node.js
 - **State Management:** React Query (TanStack), React Hook Form
 - **Validation:** Zod, @hookform/resolvers
-- **Charts & Analytics:** Recharts, React Big Calendar
 - **Other:** OAuth
 
 ---
@@ -63,34 +104,6 @@ src/
 public/
   screenshots/        # Uploaded screenshots 
 ```
-
----
-
-## Getting Started
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/mahroosanwar/orcavo.git
-   cd orcavo
-   ```
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-3. **Set up environment variables** (see `env_example.txt`)
-4. **Run the development server**
-   ```bash
-   npm run dev
-   ```
-5. **Build for production**
-   ```bash
-   npm run build
-   npm start
-   ```
-6. **Lint the codebase**
-   ```bash
-   npm run lint
-   ```
 
 ---
 
@@ -141,34 +154,30 @@ public/
 
 ---
 
-## Screenshots
+## Getting Started
 
-> **Upload screenshots in the `public/screenshots/` directory.**
-
-| Page/Feature         | Screenshot Filename                | Description/Where to Upload                |
-|----------------------|------------------------------------|--------------------------------------------|
-| Landing Page         | `landing.png`                      | Main landing page before login             |
-| Sign In              | `sign-in.png`                      | After user navigates to sign-in page       |
-| Sign Up              | `sign-up.png`                      | After user navigates to sign-up page       |
-| Dashboard            | `dashboard.png`                    | Main dashboard after login                 |
-| Workspace List       | `workspace-list.png`               | Workspace switcher or list page            |
-| Create Workspace     | `create-workspace.png`             | Workspace creation modal/page              |
-| Project List         | `project-list.png`                 | Projects overview in a workspace           |
-| Create Project       | `create-project.png`               | Project creation modal/page                |
-| Project Analytics    | `project-analytics.png`            | Analytics section of a project             |
-| Task Board/List      | `task-board.png`                   | Task management page/board                 |
-| Member Management    | `member-management.png`            | Members list and management page           |
-| Settings/Profile     | `settings.png`                     | User settings/profile page                 |
-| Error Page           | `error.png`                        | Error page (e.g., 404, 500)                |
-
----
-
-## Contributing
-
-1. Fork the repository
-2. Create a new branch (`git checkout -b feature/your-feature`)
-3. Commit your changes
-4. Push to the branch (`git push origin feature/your-feature`)
-5. Open a Pull Request
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/mahroosanwar/orcavo.git
+   cd orcavo
+   ```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+3. **Set up environment variables** (see `env_example.txt`)
+4. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+5. **Build for production**
+   ```bash
+   npm run build
+   npm start
+   ```
+6. **Lint the codebase**
+   ```bash
+   npm run lint
+   ```
 
 ---
